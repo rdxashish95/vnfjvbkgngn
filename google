@@ -1,0 +1,50 @@
+foxgle name local storage
+
+  <h1>localStorage & sessionStorage</h1>
+  <form id="name-form">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" placeholder="Digite seu nome" required />
+    <input type="submit" value="Enviar" />
+  </form>
+
+  <div id="welcome">
+    <h2>Welcome! <span id="username"></span></h2>
+    <button id="logout">Sair</button>
+  </div>
+<script>const nameForm = document.querySelector("#name-form");
+const welcome = document.querySelector("#welcome");
+const logout = document.querySelector("#logout");
+
+const checkUser = () => {
+  const userName = localStorage.getItem("user");
+
+  if (userName) {
+    nameForm.style.display = "none";
+    welcome.style.display = "block";
+
+    const userNameElement = document.querySelector("#username");
+    userNameElement.textContent = userName;
+  } else {
+    nameForm.style.display = "block";
+    welcome.style.display = "none";
+  }
+};
+
+nameForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const nameInput = document.querySelector("#name");
+  localStorage.setItem("user", nameInput.value);
+
+  nameInput.value = "";
+
+  checkUser();
+});
+
+logout.addEventListener("click", () => {
+  localStorage.removeItem("user");
+
+  checkUser();
+});
+
+checkUser();</script>
